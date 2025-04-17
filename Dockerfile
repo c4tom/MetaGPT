@@ -8,9 +8,12 @@ RUN apt update &&\
 
 # Install Mermaid CLI globally
 ENV CHROME_BIN="/usr/bin/chromium" \
-    puppeteer_config="/app/metagpt/config/puppeteer-config.json"\
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
-RUN npm install -g @mermaid-js/mermaid-cli &&\
+    puppeteer_config="/app/metagpt/config/puppeteer-config.json" \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true" \
+    PUPPETEER_SKIP_DOWNLOAD="true"
+# Workaround for self-signed certificate issues in npm
+RUN npm config set strict-ssl false && \
+    npm install -g @mermaid-js/mermaid-cli && \
     npm cache clean --force
 
 # Install Python dependencies and install MetaGPT

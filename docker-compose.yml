@@ -1,0 +1,17 @@
+services:
+  metagpt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: metagpt-dev
+    volumes:
+      - ./:/app/metagpt
+    working_dir: /app/metagpt
+    tty: true
+    stdin_open: true
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Adicione portas se for necessário expor algum serviço (exemplo abaixo)
+    # ports:
+    #   - "8000:8000"
+    #   - "7860:7860"
